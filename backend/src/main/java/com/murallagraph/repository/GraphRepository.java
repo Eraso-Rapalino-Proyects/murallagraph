@@ -17,4 +17,6 @@ public interface GraphRepository extends MongoRepository<Graph, String> {
     // Eliminar grafo por nombre
     void deleteByName(String name);
 
+    
+
 }

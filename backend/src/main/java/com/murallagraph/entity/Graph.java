@@ -3,6 +3,8 @@ package com.murallagraph.entity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.murallagraph.utils.GeoJsonConverter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,10 +16,12 @@ public class Graph {
     private String name;
     private List<Node> nodes;
     private List<Edge> edges; 
+    private String geojsonString;
 
     public Graph() {
         this.nodes = new ArrayList<Node>();
         this.edges = new ArrayList<Edge>();
+        this.updateGeoJson();
     }
 
     public Graph(String name) {
@@ -55,5 +59,23 @@ public class Graph {
 
     public void setEdges(List<Edge> edges) {
         this.edges = edges;
+    }
+
+    public void addNode(Node node) {
+        this.nodes.add(node);
+        updateGeoJson();  
+    }
+
+    public void addEdge(Edge edge) {
+        this.edges.add(edge);
+        updateGeoJson();  
+    }
+
+    public String getGeoJsonString(){
+        return geojsonString;
+    }
+
+    public void updateGeoJson() {
+        this.geojsonString = GeoJsonConverter.toGeoJson(this);
     }
 }

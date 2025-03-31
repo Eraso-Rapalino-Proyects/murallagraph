@@ -5,6 +5,7 @@ import com.murallagraph.repository.GraphRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -15,6 +16,7 @@ public class GraphService {
 
     // Guardar o actualizar un grafo
     public Graph saveGraph(Graph graph) {
+        graph.updateGeoJson();
         return graphRepository.save(graph);
     }
 
@@ -30,5 +32,9 @@ public class GraphService {
 
     public Optional<Graph> getGraphByName(String name){
         return graphRepository.findByName(name);
+    }
+
+    public List<Graph> getAllGraphs(){
+        return graphRepository.findAll();
     }
 }
